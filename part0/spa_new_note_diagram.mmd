@@ -1,0 +1,28 @@
+sequenceDiagram
+    participant user
+    participant browser
+    participant server
+
+    user->>browser: Open notes page
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate server
+    server-->>browser: HTML, CSS, and JavaScript
+    deactivate server
+
+    Note right of browser: The SPA intiializes and renders the notes view
+
+    user->>browser: Write a note in the text field
+    user->>browser: Click Save button
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    activate server
+    server-->>browser: Note saved successfully
+    deactivate server
+
+    Note right of browser: The SPA updates the notes list without reloading
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: Updated notes list
+    deactivate server
+
+    Note right of browser: The browser updates the displayed notes list with the new note
